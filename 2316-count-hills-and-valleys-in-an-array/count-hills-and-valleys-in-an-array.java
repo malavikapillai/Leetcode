@@ -1,0 +1,29 @@
+class Solution {
+    public int countHillValley(int[] nums) {
+        int count = 0;
+        
+        for (int i = 1; i < nums.length - 1; i++) {
+            // Skip if current is same as previous
+            if (nums[i] == nums[i - 1]) continue;
+
+            // Find the previous different element
+            int prev = i - 1;
+            while (prev >= 0 && nums[prev] == nums[i]) prev--;
+
+            // Find the next different element
+            int next = i + 1;
+            while (next < nums.length && nums[next] == nums[i]) next++;
+
+            // Check bounds
+            if (prev >= 0 && next < nums.length) {
+                if ((nums[i] > nums[prev] && nums[i] > nums[next]) || 
+                    (nums[i] < nums[prev] && nums[i] < nums[next])) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
+
