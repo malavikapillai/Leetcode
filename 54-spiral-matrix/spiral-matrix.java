@@ -27,7 +27,7 @@ class Solution {
 
             // left column (only if not same as right)
             if (scol != ecol) {
-                for (int i = erow - 1; i > srow; i--) {
+                for (int i = erow - 1; i >=srow+1; i--) {
                     ans.add(matrix[i][scol]);
                 }
             }
