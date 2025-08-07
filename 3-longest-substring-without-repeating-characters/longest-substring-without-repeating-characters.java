@@ -10,13 +10,13 @@ class Solution {
             char ch=s.charAt(right);
             if(!set.contains(ch))
             {
-                set.add(ch);
+                set.add(ch); 
                 max=Math.max(max,right-left+1);
                 right++;
             }
             else{
                 set.remove(s.charAt(left));
-                left++;
+                left++; 
             
 
             }
