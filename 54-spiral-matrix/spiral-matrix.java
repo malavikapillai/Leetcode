@@ -1,43 +1,49 @@
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
-        List<Integer> ans = new ArrayList<>();
-        int n = matrix.length;       // number of rows
-        int m = matrix[0].length;    // number of columns
-
-        int srow = 0, scol = 0;
-        int erow = n - 1, ecol = m - 1;
-
-        while (srow <= erow && scol <= ecol) {
-            // top row
-            for (int j = scol; j <= ecol; j++) {
-                ans.add(matrix[srow][j]);
+        List<Integer> list=new ArrayList<>();
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int srow=0;
+        int erow=m-1;
+        int scol=0;
+        int ecol=n-1;
+        while(srow<=erow && scol<=ecol)
+        {
+            for(int j=scol;j<=ecol;j++)
+        {
+            list.add(matrix[srow][j]);
+        }
+        for(int i=srow+1;i<=erow;i++)
+        {
+            list.add(matrix[i][ecol]);
+        }
+        for(int j=ecol-1;j>=scol;j--)
+        {
+            if(srow==erow)
+            {
+                break;
             }
-
-            // right column
-            for (int i = srow + 1; i <= erow; i++) {
-                ans.add(matrix[i][ecol]);
+            list.add(matrix[erow][j]);
+        }
+        for(int i=erow-1;i>=srow+1;i--)
+        {
+            if(scol==ecol)
+            {
+                break;
             }
+            list.add(matrix[i][scol]);
+        }
+        srow++;
+        erow--;
+        scol++;
+        ecol--;
 
-            // bottom row (only if not same as top)
-            if (srow != erow) {
-                for (int j = ecol - 1; j >= scol; j--) {
-                    ans.add(matrix[erow][j]);
-                }
-            }
 
-            // left column (only if not same as right)
-            if (scol != ecol) {
-                for (int i = erow - 1; i >=srow+1; i--) {
-                    ans.add(matrix[i][scol]);
-                }
-            }
-
-            srow++;
-            erow--;
-            scol++;
-            ecol--;
         }
 
-        return ans;
+        
+        return list;
+
+        
     }
 }
