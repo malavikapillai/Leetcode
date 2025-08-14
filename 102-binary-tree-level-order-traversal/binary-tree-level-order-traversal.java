@@ -1,34 +1,41 @@
-import java.util.*;
-
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        if (root == null) return result;
+        if (root == null) return result; // edge case check
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        queue.offer(null);  // null as level separator
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
 
-        List<Integer> currentLevel = new ArrayList<>();
+        while (!q.isEmpty()) {
+            List<Integer> currLevel = new ArrayList<>();
+            int size = q.size();
 
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
+            while (size > 0) {
+                TreeNode current = q.poll();
+                currLevel.add(current.val); // use current.val, not current
 
-            if (node == null) {
-                // End of one level
-                result.add(new ArrayList<>(currentLevel));
-                currentLevel.clear();
+                if (current.left != null) q.offer(current.left); // null check
+                if (current.right != null) q.offer(current.right);
 
-                // If there are still nodes left, add a new level marker
-                if (!queue.isEmpty()) {
-                    queue.offer(null);
-                }
-            } else {
-                currentLevel.add(node.val);
-
-                if (node.left != null) queue.offer(node.left);
-                if (node.right != null) queue.offer(node.right);
+                size--;
             }
+
+            result.add(currLevel); // add current level
         }
 
         return result;
